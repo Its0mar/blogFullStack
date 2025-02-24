@@ -29,6 +29,7 @@ namespace ZeroBlog.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody]RegisterDTO dto, [FromQuery]string? returnUrl = null)
         {
+            
             var user = dto.ToApplicationUser();
             var result = await _userManager.CreateAsync(user, dto.Password);
 

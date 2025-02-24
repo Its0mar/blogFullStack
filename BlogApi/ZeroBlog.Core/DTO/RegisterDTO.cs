@@ -22,7 +22,7 @@ namespace ZeroBlog.Core.DTO
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Password and Cofirm password does not match")]
-        public string ConfirmaPassword { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
         public bool IsPersistent { get; set; } = true;
 
 

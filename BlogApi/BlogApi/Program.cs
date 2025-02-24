@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text.Json;
 using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Infrastructure.DBContext;
 
@@ -10,7 +11,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+//builder.Services.AddControllers();
 builder.Services.AddControllers();
+    //.AddJsonOptions(options =>
+    //{
+    //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    //});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin() 
+              .AllowAnyMethod()  
+              .AllowAnyHeader();  
+    });
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -75,20 +91,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-
-// Use cookie authentication instead of JWT
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    options.LoginPath = "/api/auth/login";
-//    options.AccessDeniedPath = "/api/auth/access-denied";
-//    options.ExpireTimeSpan = TimeSpan.FromHours(2);
-//});
-
 //builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-
+app.UseCors("AllowAll");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -13,3 +13,4 @@ C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\refint\ZeroBlog.Infrastructure.dll
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.pdb
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ref\ZeroBlog.Infrastructure.dll
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.sourcelink.json
