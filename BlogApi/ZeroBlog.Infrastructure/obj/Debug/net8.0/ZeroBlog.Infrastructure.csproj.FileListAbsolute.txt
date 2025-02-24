@@ -1,0 +1,15 @@
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\bin\Debug\net8.0\ZeroBlog.Infrastructure.deps.json
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\bin\Debug\net8.0\ZeroBlog.Infrastructure.dll
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\bin\Debug\net8.0\ZeroBlog.Infrastructure.pdb
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\bin\Debug\net8.0\ZeroBlog.Core.dll
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\bin\Debug\net8.0\ZeroBlog.Core.pdb
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.AssemblyInfo.cs
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.csproj.CopyComplete
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.dll
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\refint\ZeroBlog.Infrastructure.dll
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ZeroBlog.Infrastructure.pdb
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Infrastructure\obj\Debug\net8.0\ref\ZeroBlog.Infrastructure.dll

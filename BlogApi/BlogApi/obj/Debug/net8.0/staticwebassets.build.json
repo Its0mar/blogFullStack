@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "e0CalMkEjcfgLsK7gur/40YEie2LMyzQzJG8udaOVTY=",
+  "Source": "ZeroBlog.Api",
+  "BasePath": "_content/ZeroBlog.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
