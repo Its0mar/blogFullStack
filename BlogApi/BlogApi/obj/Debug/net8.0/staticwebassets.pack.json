@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Omar\\Documents\\GitHub\\blogFullStack\\BlogApi\\BlogApi\\wwwroot\\ProfilePic\\4dz04c1b.mpe.png",
+      "PackagePath": "staticwebassets\\ProfilePic\\4dz04c1b.mpe.png"
+    },
+    {
+      "Id": "C:\\Users\\Omar\\Documents\\GitHub\\blogFullStack\\BlogApi\\BlogApi\\wwwroot\\ProfilePic\\ednwnbxw.nmr.png",
+      "PackagePath": "staticwebassets\\ProfilePic\\ednwnbxw.nmr.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ZeroBlog.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ZeroBlog.Api.props",
+      "PackagePath": "build\\ZeroBlog.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ZeroBlog.Api.props",
+      "PackagePath": "buildMultiTargeting\\ZeroBlog.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ZeroBlog.Api.props",
+      "PackagePath": "buildTransitive\\ZeroBlog.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

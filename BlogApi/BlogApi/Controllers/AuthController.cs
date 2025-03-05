@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Core.DTO;
+using ZeroBlog.Core.ServicesContract;
 
 namespace ZeroBlog.Api.Controllers
 {
@@ -18,40 +19,64 @@ namespace ZeroBlog.Api.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+        private readonly IFileService _fileService;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole<Guid>> roleManager )
+        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole<Guid>> roleManager, IFileService fileService )
+
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _fileService = fileService;
         }
-        [AllowAnonymous]
+
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody]RegisterDTO dto, [FromQuery]string? returnUrl = null)
+        [Authorize(policy: "NotAuthenticatedPolicy")]
+        public async Task<IActionResult> Register([FromForm]RegisterDTO dto, [FromQuery]string? returnUrl = null)
         {
+            
             var user = dto.ToApplicationUser();
             var result = await _userManager.CreateAsync(user, dto.Password);
 
-            if (!result.Succeeded) return BadRequest(result.Errors);
-
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+            if (dto.ProfilePic != null)
+            {
+                try
+                {
+                    string[] exts = { ".png", ".jpeg", ".jpg" };
+                    var filePath = await _fileService.UploadFileAsync(dto.ProfilePic, exts, 3, "ProfilePic");
+                    //dto.ProfilePicPath = filePath;
+                    user = await _userManager.FindByNameAsync(dto.UserName);
+                    if (user == null)
+                    {
+                        return BadRequest("Error Occured");
+                    }
+                    user.ProfilePicPath = filePath;
+                    await _userManager.UpdateAsync(user);
+                }
+                catch (ArgumentException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
             if (await _roleManager.FindByNameAsync("User") is null)
             {
                 IdentityRole<Guid> applicationRole = new IdentityRole<Guid>() { Name = "User" };
                 await _roleManager.CreateAsync(applicationRole);
             }
-
             await _userManager.AddToRoleAsync(user, "User");
-
             await _signInManager.SignInAsync(user, isPersistent: dto.IsPersistent);
-
             var token = GenerateJWT(user);
             return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home" });
 
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginDTO dto, [FromQuery] string returnUrl = null)
+        [Authorize(policy: "NotAuthenticatedPolicy")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO dto, [FromQuery] string? returnUrl = null)
         {
             var user = await _userManager.FindByEmailAsync(dto.UserNameOrEmail);
             if (user == null)

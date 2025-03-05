@@ -1,2 +1,4 @@
 .env
 BlogApi/BlogApi/.env
+/wwwroot/
+.vs/

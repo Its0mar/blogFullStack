@@ -10,3 +10,4 @@ C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\refint\ZeroBlog.Core.dll
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.pdb
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ref\ZeroBlog.Core.dll
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.sourcelink.json

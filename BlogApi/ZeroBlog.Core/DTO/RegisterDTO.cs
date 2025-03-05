@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using ZeroBlog.Core.Domain.IdentityEntities;
+using Microsoft.AspNetCore.Http;
 
 namespace ZeroBlog.Core.DTO
 {
@@ -16,13 +17,14 @@ namespace ZeroBlog.Core.DTO
         [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Phone Number")]
         public string? PhoneNumber { get; set; }
         public string? ProfilePicPath { get; set; }
+        public IFormFile? ProfilePic {  get; set; }
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Password and Cofirm password does not match")]
-        public string ConfirmaPassword { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
         public bool IsPersistent { get; set; } = true;
 
 

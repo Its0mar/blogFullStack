@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "e0CalMkEjcfgLsK7gur/40YEie2LMyzQzJG8udaOVTY=",
+  "Hash": "ltNzvnx++NTHV9SNjs2lhBTb9k0bCCuSoQ7e6CHgdPQ=",
   "Source": "ZeroBlog.Api",
   "BasePath": "_content/ZeroBlog.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ZeroBlog.Api\\wwwroot",
+      "Source": "ZeroBlog.Api",
+      "ContentRoot": "C:\\Users\\Omar\\Documents\\GitHub\\blogFullStack\\BlogApi\\BlogApi\\wwwroot\\",
+      "BasePath": "_content/ZeroBlog.Api",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }
