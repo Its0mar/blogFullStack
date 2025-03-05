@@ -1,15 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Net;
-using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using ZeroBlog.Core.Domain.IdentityEntities;
-using ZeroBlog.Core.Services;
-using ZeroBlog.Core.ServicesContract;
 using ZeroBlog.Infrastructure.DBContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,17 +17,14 @@ builder.Services.AddControllers();
     //{
     //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     //});
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:3000")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        });
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin() 
+              .AllowAnyMethod()  
+              .AllowAnyHeader();  
+    });
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -88,55 +80,31 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
     options.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<AppDBContext>().AddDefaultTokenProviders();
 
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-//{
-//    options.TokenValidationParameters = new TokenValidationParameters
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//    };
-//});
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
-            options.Audience = builder.Configuration["Auth0:Audience"]; // The API Identifier from Auth0
-
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}",
-                ValidAudience = builder.Configuration["Auth0:Audience"]
-            };
-        });
-
-//builder.Services.AddControllers();
-builder.Services.AddAuthorization(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-    options.AddPolicy("NotAuthenticatedPolicy", policy =>
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        policy.RequireAssertion(context => !context.User.Identity?.IsAuthenticated ?? false);
-    });
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+    };
 });
 
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IFileService, FileService>();
+//builder.Services.AddControllers();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
-app.UseCors("AllowReactApp");
-
+app.UseCors("AllowAll");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

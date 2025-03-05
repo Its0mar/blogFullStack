@@ -60,4 +60,3 @@ C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\Mi
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\Sprache.dll
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\obj\Debug\net8.0\ZeroBlog.Api.sourcelink.json
-C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\ZeroBlog.Api.staticwebassets.runtime.json
