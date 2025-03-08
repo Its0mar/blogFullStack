@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text.Json;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using ZeroBlog.Core.Domain.IdentityEntities;
+using ZeroBlog.Core.Services;
+using ZeroBlog.Core.ServicesContract;
 using ZeroBlog.Infrastructure.DBContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,13 +36,15 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 
-    // Add cookie authentication to Swagger
-    c.AddSecurityDefinition("cookieAuth", new OpenApiSecurityScheme
+    // Define JWT Bearer security scheme
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "Cookie",
+        Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Session-based authentication using cookies"
+        Description = "JWT Authorization header using the Bearer scheme."
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -50,7 +55,7 @@ builder.Services.AddSwaggerGen(c =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "cookieAuth"
+                    Id = "Bearer"
                 }
             },
             new string[] {}
@@ -92,10 +97,30 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 //builder.Services.AddControllers();
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+    options.AddPolicy("NotAuthenticatedPolicy", policy =>
+    {
+        policy.RequireAssertion(context => { return !context.User.Identity.IsAuthenticated; });
+    });
+});
+
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+{
+    options.TokenLifespan = TimeSpan.FromHours(48); // Extend to 48 hours
+});
+
+
+builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 
 var app = builder.Build();
 app.UseCors("AllowAll");
+app.UseRouting();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

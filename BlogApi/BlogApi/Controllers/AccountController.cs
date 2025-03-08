@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Core.DTO;
@@ -14,12 +17,14 @@ namespace ZeroBlog.Api.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAccountService _accountService;
+        private readonly IEmailSender _emailSender;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _accountService = accountService;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
 
         // update acccount info
@@ -50,6 +55,50 @@ namespace ZeroBlog.Api.Controllers
 
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO dto)
+        {
+            var user = await _userManager.FindByEmailAsync(dto.EmailOrUserName);
+            if (user == null)
+                await _userManager.FindByNameAsync(dto.EmailOrUserName);
+
+            if (user == null || user.Email == null)
+                return NotFound("user with this email or username is not found");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callBackUrl = Url.Action("ResetPassword", "Account", new { token, email = dto.EmailOrUserName }, Request.Scheme);
+            try
+            {
+                await _emailSender.SendEmailAsync(user.Email, "Reset Password", $"Please reset your password by clicking here: <a href='{callBackUrl}'>link</a>");
+            }
+            catch(Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+            return Ok("Reset password link has been sent to your email.");
+            
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+                return NotFound("User not found");
+
+            // Reset the password using the token
+            var result = await _userManager.ResetPasswordAsync(user, dto.Token, dto.Password);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return Ok("Password has been reset successfully.");
+        }
 
         // delete account
         [HttpDelete] 
@@ -68,6 +117,13 @@ namespace ZeroBlog.Api.Controllers
             await _signInManager.SignOutAsync();
 
             return Ok();
+        }
+
+        [HttpGet("/")]
+        [AllowAnonymous]
+        public IActionResult Meow()
+        {
+            return Ok("hello heloo");
         }
     }
 }
