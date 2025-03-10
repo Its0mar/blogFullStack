@@ -18,13 +18,15 @@ namespace ZeroBlog.Api.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAccountService _accountService;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
+        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole<Guid>> roleManager)
         {
             _userManager = userManager;
             _accountService = accountService;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         // update acccount info
@@ -121,8 +123,24 @@ namespace ZeroBlog.Api.Controllers
 
         [HttpGet("/")]
         [AllowAnonymous]
-        public IActionResult Meow()
+        public async Task<IActionResult> Meow()
         {
+            var normalUser = new ApplicationUser
+            {
+                UserName = "user",
+                PersonName = "User",
+                NormalizedUserName = "USER@EXAMPLE.COM",
+                Email = "user@example.com",
+                NormalizedEmail = "USER@EXAMPLE.COM",
+                EmailConfirmed = true
+            };
+            if (!await _roleManager.RoleExistsAsync("User")) {
+                IdentityRole<Guid> role = new IdentityRole<Guid>() { Name = "User" };
+                await _roleManager.CreateAsync(role);
+
+            }
+            await _userManager.CreateAsync(normalUser, "user34");
+            await _userManager.AddToRoleAsync(normalUser, "User");
             return Ok("hello heloo");
         }
     }

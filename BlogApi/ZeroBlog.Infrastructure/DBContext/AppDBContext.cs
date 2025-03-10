@@ -8,6 +8,7 @@ namespace ZeroBlog.Infrastructure.DBContext
 {
     public class AppDBContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
+        public DbSet<Post> Posts { get; set; }
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)

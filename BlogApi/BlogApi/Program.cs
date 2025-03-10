@@ -9,6 +9,8 @@ using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Core.Services;
 using ZeroBlog.Core.ServicesContract;
 using ZeroBlog.Infrastructure.DBContext;
+using ZeroBlog.Core.Domain;
+using ZeroBlog.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -116,6 +118,9 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(BaseRepository<>));
+builder.Services.AddTransient(typeof(IPostService), typeof(PostService));
+
 
 
 var app = builder.Build();
