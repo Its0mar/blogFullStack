@@ -1,5 +1,5 @@
 ﻿
-namespace ZeroBlog.Core.Domain.IdentityEntities
+namespace ZeroBlog.Core.Domain.Entities
 {
     public class BaseEntity
     {

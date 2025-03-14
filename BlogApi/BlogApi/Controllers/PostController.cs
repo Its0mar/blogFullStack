@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using ZeroBlog.Core.Domain.IdentityEntities;
+using ZeroBlog.Core.Domain.Entities;
 using ZeroBlog.Core.DTO.PostDTOS;
 using ZeroBlog.Core.ServicesContract;
 
@@ -14,21 +13,16 @@ namespace ZeroBlog.Api.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostService _postService;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PostController(IPostService postService, UserManager<ApplicationUser> userManager)
+        public PostController(IPostService postService)
         {
             _postService = postService;
-            _userManager = userManager;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Post>>> GetAllPostsAsync()
         {
             var posts = await _postService.GetAllPostsAsync();
-            if (posts == null)
-                return NoContent();
-
             return Ok(posts.ToList());
         }
 

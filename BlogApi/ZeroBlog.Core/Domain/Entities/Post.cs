@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZeroBlog.Core.Domain.IdentityEntities;
 
-namespace ZeroBlog.Core.Domain.IdentityEntities
+namespace ZeroBlog.Core.Domain.Entities
 {
     public class Post : BaseEntity
     {

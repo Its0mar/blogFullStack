@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
+using ZeroBlog.Core.Domain.Entities;
 using ZeroBlog.Core.Domain.IdentityEntities;
 
 namespace ZeroBlog.Infrastructure.DBContext
@@ -9,11 +11,15 @@ namespace ZeroBlog.Infrastructure.DBContext
     public class AppDBContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            builder.Entity<Comment>().HasOne(c => c.ParentComment).WithMany(c => c.Replies).HasForeignKey(c => c.ParentCommentId);
+            builder.Entity<Comment>().HasOne(c => c.Author).WithMany().HasForeignKey(c => c.AuthorId);
+            builder.Entity<Comment>().HasOne(c => c.Post).WithMany().HasForeignKey(c => c.PostID);
+            
 
             // Define roles
             var adminRoleId = Guid.NewGuid();
@@ -65,6 +71,8 @@ namespace ZeroBlog.Infrastructure.DBContext
             builder.Entity<IdentityRole<Guid>>().HasData(roles);
             builder.Entity<ApplicationUser>().HasData(adminUser, normalUser);
             builder.Entity<IdentityUserRole<Guid>>().HasData(userRoles);
+
+            base.OnModelCreating(builder);
         }
     }
 }

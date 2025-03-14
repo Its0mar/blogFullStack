@@ -1,6 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-using ZeroBlog.Core.Domain.IdentityEntities;
+using ZeroBlog.Core.Domain.Entities;
 
 namespace ZeroBlog.Core.DTO.PostDTOS
 {

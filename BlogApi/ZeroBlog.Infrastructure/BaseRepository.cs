@@ -1,8 +1,8 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
-using ZeroBlog.Core.Domain;
-using ZeroBlog.Core.Domain.IdentityEntities;
+using ZeroBlog.Core.Domain.Entities;
+using ZeroBlog.Core.Domain.RepositoryContracts;
 using ZeroBlog.Infrastructure.DBContext;
 
 namespace ZeroBlog.Infrastructure

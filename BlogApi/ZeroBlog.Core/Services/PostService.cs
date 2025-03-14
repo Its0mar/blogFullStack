@@ -1,7 +1,7 @@
 ﻿using ZeroBlog.Core.DTO.PostDTOS;
-using ZeroBlog.Core.Domain;
-using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Core.ServicesContract;
+using ZeroBlog.Core.Domain.Entities;
+using ZeroBlog.Core.Domain.RepositoryContracts;
 
 namespace ZeroBlog.Core.Services
 {
@@ -16,6 +16,10 @@ namespace ZeroBlog.Core.Services
         public async Task<IEnumerable<Post>> GetAllPostsAsync()
         {
             return await _repo.GetAllAsync();
+        }
+        public async Task<Post?> GetPostAsync(Guid id)
+        {
+            return await _repo.GetByIdAsync(id);
         }
         public async Task AddPostAsync(AddPostDTO dto)
         {

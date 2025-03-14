@@ -9,8 +9,8 @@ using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Core.Services;
 using ZeroBlog.Core.ServicesContract;
 using ZeroBlog.Infrastructure.DBContext;
-using ZeroBlog.Core.Domain;
 using ZeroBlog.Infrastructure;
+using ZeroBlog.Core.Domain.RepositoryContracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -120,6 +120,7 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient(typeof(IPostService), typeof(PostService));
+builder.Services.AddTransient<ICommentService, CommentService>();
 
 
 

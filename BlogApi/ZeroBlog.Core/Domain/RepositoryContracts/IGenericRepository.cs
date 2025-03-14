@@ -1,5 +1,4 @@
-﻿
-namespace ZeroBlog.Core.Domain
+﻿namespace ZeroBlog.Core.Domain.RepositoryContracts
 {
     public interface IGenericRepository<T> where T : class
     {
