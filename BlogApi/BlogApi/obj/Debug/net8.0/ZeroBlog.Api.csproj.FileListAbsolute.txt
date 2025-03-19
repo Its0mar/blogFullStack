@@ -65,3 +65,4 @@ C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\Ne
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\SendGrid.dll
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\StarkbankEcdsa.dll
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\Postmark.dll
+C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\BlogApi\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll

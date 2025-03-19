@@ -13,6 +13,6 @@ namespace ZeroBlog.Core.Domain.Entities
         public DateTime CreatedDate { get; set; }
         public bool IsPublic { get; set; }
 
-        public ApplicationUser Author { get; set; } = new();
+        public ApplicationUser Author { get; set; }
     }
 }

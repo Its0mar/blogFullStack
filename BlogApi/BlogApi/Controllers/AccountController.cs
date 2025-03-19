@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
+using ZeroBlog.Core.Domain.Entities;
 using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Core.DTO;
+using ZeroBlog.Core.DTO.PostDTOS;
 using ZeroBlog.Core.ServicesContract;
 
 namespace ZeroBlog.Api.Controllers
@@ -19,14 +21,17 @@ namespace ZeroBlog.Api.Controllers
         private readonly IAccountService _accountService;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+        // to delete later
+        private readonly IPostService _postService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole<Guid>> roleManager)
+        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole<Guid>> roleManager, IPostService postService)
         {
             _userManager = userManager;
             _accountService = accountService;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _postService = postService;
         }
 
         // update acccount info
@@ -141,7 +146,23 @@ namespace ZeroBlog.Api.Controllers
             }
             await _userManager.CreateAsync(normalUser, "user34");
             await _userManager.AddToRoleAsync(normalUser, "User");
+            await _signInManager.SignInAsync(normalUser, true);
+
+            AddPostDTO post = new AddPostDTO
+            {
+                AuthorId = getCurrentUserId(),
+                Body = "bodyyy",
+                Title = "titelee",
+                IsPublic = true,
+            };
+            await _postService.AddPostAsync(post);
             return Ok("hello heloo");
+        }
+
+        private Guid getCurrentUserId()
+        {
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return (id == null ? Guid.Empty : Guid.Parse(id));
         }
     }
 }

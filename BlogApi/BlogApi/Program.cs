@@ -11,9 +11,15 @@ using ZeroBlog.Core.ServicesContract;
 using ZeroBlog.Infrastructure.DBContext;
 using ZeroBlog.Infrastructure;
 using ZeroBlog.Core.Domain.RepositoryContracts;
+using System.Text;
+using DotNetEnv;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.JsonWebTokens;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DotNetEnv.Env.Load();
 // Add services to the container.
 
 //builder.Services.AddControllers();
@@ -87,7 +93,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
     options.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<AppDBContext>().AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -95,13 +106,70 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"))),
+        ValidIssuer = "https://localhost:7210/",
+        ValidAudience = "https://localhost:7210/",
     };
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine("Token validated successfully.");
+            return Task.CompletedTask;
+        },
+        OnChallenge = context =>
+        {
+            Console.WriteLine($"OnChallenge: {context.ErrorDescription}");
+            return Task.CompletedTask;
+        },
+        OnMessageReceived = context =>
+        {
+            Console.WriteLine($"Authorization header: {context.Request.Headers["Authorization"]}");
+            return Task.CompletedTask;
+        }
+};
+    //options.Events = new JwtBearerEvents
+    //{
+    //    OnTokenValidated = async context =>
+    //    {
+    //        var jsonWebToken = context.SecurityToken as JsonWebToken;
+    //        if (jsonWebToken == null)
+    //        {
+    //            context.Fail("Invalid token format");
+    //            return;
+    //        }
+
+    //        // Access claims directly from JsonWebToken
+    //        var username = jsonWebToken.Claims
+    //            .FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+    //        // Or use context.Principal.Claims
+    //        var userId = context.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+    //    }
+    //};
+
 });
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+//{
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//    };
+//});
 
 //builder.Services.AddControllers();
 builder.Services.AddAuthorization(options =>
 {
-    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+   // options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
     options.AddPolicy("NotAuthenticatedPolicy", policy =>
     {
@@ -121,7 +189,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient(typeof(IPostService), typeof(PostService));
 builder.Services.AddTransient<ICommentService, CommentService>();
-
+builder.Services.AddTransient<IJwtService, JwtService>();
 
 
 var app = builder.Build();

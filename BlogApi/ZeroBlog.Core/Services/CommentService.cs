@@ -1,4 +1,5 @@
-﻿using ZeroBlog.Core.Domain.Entities;
+﻿using System.Linq.Expressions;
+using ZeroBlog.Core.Domain.Entities;
 using ZeroBlog.Core.Domain.RepositoryContracts;
 using ZeroBlog.Core.DTO.CommentDTOS;
 using ZeroBlog.Core.ServicesContract;
@@ -47,7 +48,7 @@ namespace ZeroBlog.Core.Services
 
         public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
         {
-            return await _repo.GetAllAsync();
+            return await _repo.GetWithIncludeAsync(comment => true, new Expression<Func<Comment, Object>>[] { comment => comment.Author } );
         }
     }
 }

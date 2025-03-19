@@ -17,11 +17,16 @@ namespace ZeroBlog.Core.Domain.Entities
         public int NumberOfLikes { get; set; } = 0;
         public int NumberOfDisLikes { get; set; } = 0;
 
-        public ApplicationUser Author { get; set; } = new();
+        public ApplicationUser Author { get; set; }
         public Comment? ParentComment { get; set; }
         public Post Post { get; set; } = new();
-        public List<Comment> Replies { get; set; }  = new();
+        public List<Comment> Replies { get; set; }
 
+        //public Comment()
+        //{
+        //    Author = new();
+        //    Replies = new();
+        //}
 
 
     }

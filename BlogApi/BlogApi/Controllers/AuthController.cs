@@ -20,18 +20,21 @@ namespace ZeroBlog.Api.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
         private readonly IFileService _fileService;
+        private readonly IJwtService _jwtService;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole<Guid>> roleManager, IFileService fileService )
+        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole<Guid>> roleManager, IFileService fileService, IJwtService jwtService )
 
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _fileService = fileService;
+            _jwtService = jwtService;
         }
 
         [HttpPost]
-        [Authorize(policy: "NotAuthenticatedPolicy")]
+        [AllowAnonymous]
+      //  [Authorize(policy: "NotAuthenticatedPolicy")]
         public async Task<IActionResult> Register([FromForm]RegisterDTO dto, [FromQuery]string? returnUrl = null)
         {
             
@@ -69,13 +72,14 @@ namespace ZeroBlog.Api.Controllers
             }
             await _userManager.AddToRoleAsync(user, "User");
             await _signInManager.SignInAsync(user, isPersistent: dto.IsPersistent);
-            var token = GenerateJWT(user);
+            var token = _jwtService.CreateJwtToken(user);
             return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home" });
 
         }
 
         [HttpPost]
-        [Authorize(policy: "NotAuthenticatedPolicy")]
+        [AllowAnonymous]
+       // [Authorize(policy: "NotAuthenticatedPolicy")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto, [FromQuery] string? returnUrl = null)
         {
             var user = await _userManager.FindByEmailAsync(dto.UserNameOrEmail);
@@ -83,10 +87,10 @@ namespace ZeroBlog.Api.Controllers
                 user = await _userManager.FindByNameAsync(dto.UserNameOrEmail);
             if (user == null)
                 return Unauthorized("Invalid credentials");
-            var result = await _signInManager.PasswordSignInAsync(user, dto.Password, isPersistent: dto.IsPersistent, true);
-            if (!result.Succeeded) return Unauthorized("Invalid Email-User Name or password");
+           // var result = await _signInManager.PasswordSignInAsync(user, dto.Password, isPersistent: dto.IsPersistent, true);
+           // if (!result.Succeeded) return Unauthorized("Invalid Email-User Name or password");
 
-            var token = GenerateJWT(user);
+            var token = _jwtService.CreateJwtToken(user);
             return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home" });
         }
 
@@ -122,6 +126,10 @@ namespace ZeroBlog.Api.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+
+
+
         #endregion
 
     }
