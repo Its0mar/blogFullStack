@@ -19,6 +19,9 @@ namespace ZeroBlog.Core.DTO
         public string? PhoneNumber { get; set; }
         public string? ProfilePicPath { get; set; }
         public IFormFile? ProfilePic { get; set; }
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; } = string.Empty;
+ 
 
 
         public ApplicationUser ToApplicationUser(ApplicationUser user)

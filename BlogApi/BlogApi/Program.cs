@@ -107,8 +107,8 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"))),
-        ValidIssuer = "https://localhost:7210/",
-        ValidAudience = "https://localhost:7210/",
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
     };
     options.Events = new JwtBearerEvents
     {
@@ -169,7 +169,7 @@ builder.Services.AddAuthentication(options =>
 //builder.Services.AddControllers();
 builder.Services.AddAuthorization(options =>
 {
-   // options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+   options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
     options.AddPolicy("NotAuthenticatedPolicy", policy =>
     {

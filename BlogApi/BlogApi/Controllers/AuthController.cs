@@ -33,11 +33,10 @@ namespace ZeroBlog.Api.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-      //  [Authorize(policy: "NotAuthenticatedPolicy")]
+        //[AllowAnonymous]
+        [Authorize(policy: "NotAuthenticatedPolicy")]
         public async Task<IActionResult> Register([FromForm]RegisterDTO dto, [FromQuery]string? returnUrl = null)
-        {
-            
+        {            
             var user = dto.ToApplicationUser();
             var result = await _userManager.CreateAsync(user, dto.Password);
 
@@ -51,7 +50,6 @@ namespace ZeroBlog.Api.Controllers
                 {
                     string[] exts = { ".png", ".jpeg", ".jpg" };
                     var filePath = await _fileService.UploadFileAsync(dto.ProfilePic, exts, 3, "ProfilePic");
-                    //dto.ProfilePicPath = filePath;
                     user = await _userManager.FindByNameAsync(dto.UserName);
                     if (user == null)
                     {
@@ -71,15 +69,14 @@ namespace ZeroBlog.Api.Controllers
                 await _roleManager.CreateAsync(applicationRole);
             }
             await _userManager.AddToRoleAsync(user, "User");
-            await _signInManager.SignInAsync(user, isPersistent: dto.IsPersistent);
             var token = _jwtService.CreateJwtToken(user);
             return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home" });
 
         }
 
         [HttpPost]
-        [AllowAnonymous]
-       // [Authorize(policy: "NotAuthenticatedPolicy")]
+        //[AllowAnonymous]
+        [Authorize(policy: "NotAuthenticatedPolicy")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto, [FromQuery] string? returnUrl = null)
         {
             var user = await _userManager.FindByEmailAsync(dto.UserNameOrEmail);
@@ -87,48 +84,15 @@ namespace ZeroBlog.Api.Controllers
                 user = await _userManager.FindByNameAsync(dto.UserNameOrEmail);
             if (user == null)
                 return Unauthorized("Invalid credentials");
-           // var result = await _signInManager.PasswordSignInAsync(user, dto.Password, isPersistent: dto.IsPersistent, true);
-           // if (!result.Succeeded) return Unauthorized("Invalid Email-User Name or password");
+            var result = await _userManager.CheckPasswordAsync(user, dto.Password);
+            if (result == false)
+                return Unauthorized("Invalid credentials");
 
             var token = _jwtService.CreateJwtToken(user);
             return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home" });
         }
 
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> LogOut()
-        {
-            await _signInManager.SignOutAsync();
-            return Ok(new { message = "Logged out successfully" });
-        }
-
-
         #region UtilityMethod
-        private string GenerateJWT(ApplicationUser user)
-        {
-            Env.Load();
-            string secret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "secret_key_key_secret";
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var token = new JwtSecurityToken("https://localhost:7210/",
-                "https://localhost:7210/",
-                claims,
-                expires: DateTime.Now.AddMinutes(120),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-
-
 
         #endregion
 

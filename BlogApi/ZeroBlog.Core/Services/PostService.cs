@@ -12,7 +12,7 @@ namespace ZeroBlog.Core.Services
         {
             _repo = repo;
         }
-
+       
         public async Task<IEnumerable<Post>> GetAllPostsAsync()
         {
             return await _repo.GetAllAsync();

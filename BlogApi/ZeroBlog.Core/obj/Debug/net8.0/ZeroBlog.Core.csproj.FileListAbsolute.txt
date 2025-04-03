@@ -11,3 +11,16 @@ C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.pdb
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ref\ZeroBlog.Core.dll
 C:\Users\Omar\Documents\GitHub\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.sourcelink.json
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\bin\Debug\net8.0\ZeroBlog.Core.deps.json
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\bin\Debug\net8.0\ZeroBlog.Core.dll
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\bin\Debug\net8.0\ZeroBlog.Core.pdb
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.csproj.AssemblyReference.cache
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.AssemblyInfoInputs.cache
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.AssemblyInfo.cs
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.csproj.CoreCompileInputs.cache
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.sourcelink.json
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.dll
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\refint\ZeroBlog.Core.dll
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ZeroBlog.Core.pdb
+C:\Users\omarj\source\repos\Its0mar\blogFullStack\BlogApi\ZeroBlog.Core\obj\Debug\net8.0\ref\ZeroBlog.Core.dll

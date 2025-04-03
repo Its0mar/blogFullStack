@@ -12,6 +12,7 @@ namespace ZeroBlog.Core.Domain.Entities
         public Guid AuthorId { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsPublic { get; set; }
+        public List<string> Tags { get; set; } = new();
 
         public ApplicationUser Author { get; set; }
     }

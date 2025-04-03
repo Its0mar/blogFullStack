@@ -45,6 +45,10 @@ namespace ZeroBlog.Api.Controllers
             {
                 return NotFound("user is not found");
             }
+            var checkPassowrd = await _userManager.CheckPasswordAsync(user, dto.OldPassword);
+            if (checkPassowrd == false)
+                return Forbid("password is not correct");
+
             try
             {
                 var result = await _accountService.UpdateAccountInfoAsync(user, dto);
@@ -85,6 +89,16 @@ namespace ZeroBlog.Api.Controllers
             }
             return Ok("Reset password link has been sent to your email.");
             
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePassDTO dto)
+        {
+            var result = await _accountService.UpdatePasswordAsync(dto,getCurrentUserId(), dto.NewPassword);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors.Select(e => e.Description).ToList());
+
+            return Ok("Password updated successfully");
         }
 
         [HttpPost]

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ltNzvnx++NTHV9SNjs2lhBTb9k0bCCuSoQ7e6CHgdPQ=",
+  "Hash": "FSAy6uM+Wb2PBfg/CbxP3J0sxxkmKZHoALjDHVPHVZI=",
   "Source": "ZeroBlog.Api",
   "BasePath": "_content/ZeroBlog.Api",
   "Mode": "Default",
@@ -10,10 +10,11 @@
     {
       "Name": "ZeroBlog.Api\\wwwroot",
       "Source": "ZeroBlog.Api",
-      "ContentRoot": "C:\\Users\\Omar\\Documents\\GitHub\\blogFullStack\\BlogApi\\BlogApi\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\wwwroot\\",
       "BasePath": "_content/ZeroBlog.Api",
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

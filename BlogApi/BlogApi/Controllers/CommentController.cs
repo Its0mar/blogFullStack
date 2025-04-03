@@ -28,6 +28,16 @@ namespace ZeroBlog.Api.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteComment(Guid commentId)
+        {
+            var result = await _commentService.DeleteCommentAsync(commentId, getCurrentUserId());
+            if (result == false)
+                return BadRequest();
+
+            return Ok();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllComments()
         {

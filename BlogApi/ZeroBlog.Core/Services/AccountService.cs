@@ -6,17 +6,17 @@ using ZeroBlog.Core.ServicesContract;
 
 namespace ZeroBlog.Core.Services
 {
-    public class AccountService :IAccountService
+    public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IFileService _fileService;
         public AccountService(UserManager<ApplicationUser> userManager, IFileService fileService)
-        { 
+        {
             _userManager = userManager;
             _fileService = fileService;
         }
 
-        public async Task<bool> UpdateAccountInfoAsync(ApplicationUser user,UpdateAccInfoDTO dto)
+        public async Task<bool> UpdateAccountInfoAsync(ApplicationUser user, UpdateAccInfoDTO dto)
         {
             var pathToDelete = user.ProfilePicPath;
             user = dto.ToApplicationUser(user);
@@ -67,7 +67,26 @@ namespace ZeroBlog.Core.Services
             }
 
             return true;
-            
+
+        }
+
+        public async Task<IdentityResult> UpdatePasswordAsync(UpdatePassDTO dto, Guid Id,string newPassword)
+        {
+            var user = await _userManager.FindByIdAsync(Id.ToString());
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "User is not found" });
+            }
+
+            var checkPassword = await _userManager.CheckPasswordAsync(user, dto.OldPassword);
+            if (!checkPassword)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Old Password is incorrect" });
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            return result;
         }
     }
 }
