@@ -38,11 +38,6 @@ namespace ZeroBlog.Api.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllComments()
-        {
-            return Ok(await _commentService.GetAllCommentsAsync());
-        }
         private Guid getCurrentUserId()
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);

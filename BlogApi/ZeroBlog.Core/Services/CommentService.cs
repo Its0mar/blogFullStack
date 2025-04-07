@@ -61,6 +61,7 @@ namespace ZeroBlog.Core.Services
         public async Task<IEnumerable<ViewCommentDTO>> GetAllCommentsAsyncForPost(Guid postId)
         {
             var comments = await _repo.GetWithIncludeAsync(comment => comment.PostID == postId, new Expression<Func<Comment, Object>>[] { comment => comment.Author });
+            // note : using Func without Expression will load all the data in memory then the specific query
             var dtos =  comments.Select(c => c.ToCommentDTO()).ToList();
             return dtos;
         }

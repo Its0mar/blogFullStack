@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using ZeroBlog.Core.Domain.Entities;
 using ZeroBlog.Core.DTO.PostDTOS;
 using ZeroBlog.Core.ServicesContract;
 
@@ -20,9 +19,23 @@ namespace ZeroBlog.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Post>>> GetAllPostsAsync()
+        public async Task<ActionResult<List<ViewPostDTO>>> GetAllPostsAsync()
         {
             var posts = await _postService.GetAllPostsAsync();
+            return Ok(posts.ToList());
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<List<ViewPostDTO>>> GetAllUserPublicPostsAsync(Guid userId)
+        {
+            var posts = await _postService.GetAllUserPublicPostAsync(userId);
+            return Ok(posts.ToList());
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<List<ViewPostDTO>>> GetAllUserPostsAsync(Guid userId)
+        {
+            var posts = await _postService.GetAllUserPostAsync(userId);
             return Ok(posts.ToList());
         }
 

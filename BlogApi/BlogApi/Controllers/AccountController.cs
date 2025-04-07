@@ -160,7 +160,7 @@ namespace ZeroBlog.Api.Controllers
             }
             await _userManager.CreateAsync(normalUser, "user34");
             await _userManager.AddToRoleAsync(normalUser, "User");
-            await _signInManager.SignInAsync(normalUser, true);
+           // await _signInManager.SignInAsync(normalUser, true);
 
             AddPostDTO post = new AddPostDTO
             {

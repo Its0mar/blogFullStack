@@ -228,16 +228,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ZeroBlog.Api.Controllers.CommentController",
-    "Method": "GetAllComments",
-    "RelativePath": "api/Comment",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "ZeroBlog.Api.Controllers.PostController",
     "Method": "AddPostAsync",
     "RelativePath": "api/Post/AddPost",
@@ -279,7 +269,59 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[ZeroBlog.Core.Domain.Entities.Post, ZeroBlog.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[ZeroBlog.Core.DTO.PostDTOS.ViewPostDTO, ZeroBlog.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ZeroBlog.Api.Controllers.PostController",
+    "Method": "GetAllUserPostsAsync",
+    "RelativePath": "api/Post/GetAllUserPosts/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ZeroBlog.Core.DTO.PostDTOS.ViewPostDTO, ZeroBlog.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ZeroBlog.Api.Controllers.PostController",
+    "Method": "GetAllUserPublicPostsAsync",
+    "RelativePath": "api/Post/GetAllUserPublicPosts/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ZeroBlog.Core.DTO.PostDTOS.ViewPostDTO, ZeroBlog.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

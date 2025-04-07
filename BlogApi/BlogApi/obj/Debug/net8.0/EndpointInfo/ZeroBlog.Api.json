@@ -393,16 +393,6 @@
             "description": "Success"
           }
         }
-      },
-      "get": {
-        "tags": [
-          "Comment"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
       }
     },
     "/api/Post/GetAllPosts": {
@@ -418,7 +408,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Post"
+                    "$ref": "#/components/schemas/ViewPostDTO"
                   }
                 }
               },
@@ -426,7 +416,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Post"
+                    "$ref": "#/components/schemas/ViewPostDTO"
                   }
                 }
               },
@@ -434,7 +424,105 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Post"
+                    "$ref": "#/components/schemas/ViewPostDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Post/GetAllUserPublicPosts/{userId}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewPostDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewPostDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewPostDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Post/GetAllUserPosts/{userId}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewPostDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewPostDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ViewPostDTO"
                   }
                 }
               }
@@ -563,81 +651,6 @@
         },
         "additionalProperties": false
       },
-      "ApplicationUser": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "normalizedUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "normalizedEmail": {
-            "type": "string",
-            "nullable": true
-          },
-          "emailConfirmed": {
-            "type": "boolean"
-          },
-          "passwordHash": {
-            "type": "string",
-            "nullable": true
-          },
-          "securityStamp": {
-            "type": "string",
-            "nullable": true
-          },
-          "concurrencyStamp": {
-            "type": "string",
-            "nullable": true
-          },
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "phoneNumberConfirmed": {
-            "type": "boolean"
-          },
-          "twoFactorEnabled": {
-            "type": "boolean"
-          },
-          "lockoutEnd": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "lockoutEnabled": {
-            "type": "boolean"
-          },
-          "accessFailedCount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "personName": {
-            "type": "string",
-            "nullable": true
-          },
-          "profilePicPath": {
-            "type": "string",
-            "nullable": true
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
       "ForgotPasswordDTO": {
         "required": [
           "emailOrUserName"
@@ -668,38 +681,6 @@
           },
           "isPersistent": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Post": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "body": {
-            "type": "string",
-            "nullable": true
-          },
-          "authorId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isPublic": {
-            "type": "boolean"
-          },
-          "author": {
-            "$ref": "#/components/schemas/ApplicationUser"
           }
         },
         "additionalProperties": false
@@ -753,6 +734,44 @@
           "confirmNewPassword": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ViewPostDTO": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "authorUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "authorProfileLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "authorProfilePic": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          },
+          "likes": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

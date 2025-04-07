@@ -12,14 +12,25 @@ namespace ZeroBlog.Infrastructure.DBContext
     {
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<UserSavedPost> UserSavedPosts { get; set; }
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Post>().HasOne(p => p.Author).WithMany(u => u.UserPosts).HasForeignKey(p => p.AuthorId).OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<Comment>().HasOne(c => c.ParentComment).WithMany(c => c.Replies).HasForeignKey(c => c.ParentCommentId);
             builder.Entity<Comment>().HasOne(c => c.Author).WithMany().HasForeignKey(c => c.AuthorId);
             builder.Entity<Comment>().HasOne(c => c.Post).WithMany().HasForeignKey(c => c.PostID);
             
+            builder.Entity<UserSavedPost>().HasKey(us => new { us.UserID, us.PostID });
+            builder.Entity<UserSavedPost>().HasOne(us => us.User).WithMany(u => u.SavedPosts).HasForeignKey(us => us.UserID).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<UserSavedPost>().HasOne(us => us.Post).WithMany(p => p.SavedPosts).HasForeignKey(us => us.PostID).OnDelete(DeleteBehavior.Cascade);
+
+            
+
 
             // Define roles
             var adminRoleId = Guid.NewGuid();
@@ -72,7 +83,9 @@ namespace ZeroBlog.Infrastructure.DBContext
             builder.Entity<ApplicationUser>().HasData(adminUser, normalUser);
             builder.Entity<IdentityUserRole<Guid>>().HasData(userRoles);
 
-            base.OnModelCreating(builder);
+
+
+            
         }
     }
 }
