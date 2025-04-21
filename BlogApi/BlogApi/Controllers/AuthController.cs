@@ -42,7 +42,7 @@ namespace ZeroBlog.Api.Controllers
 
             if (!result.Succeeded)
             {
-                return BadRequest(result.Errors);
+                return Problem(statusCode: 400, title: "Failed to register", detail:string.Join(" ", result.Errors.Select(e => e.Description)));
             }
             if (dto.ProfilePic != null)
             {
@@ -53,7 +53,7 @@ namespace ZeroBlog.Api.Controllers
                     user = await _userManager.FindByNameAsync(dto.UserName);
                     if (user == null)
                     {
-                        return BadRequest("Error Occured");
+                        return Problem(statusCode: 500, title: "Error Occured", detail: "Error while getting user");
                     }
                     user.ProfilePicPath = filePath;
                     await _userManager.UpdateAsync(user);

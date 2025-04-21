@@ -35,6 +35,12 @@ namespace ZeroBlog.Api.Controllers
         [HttpGet("{userId}")]
         public async Task<ActionResult<List<ViewPostDTO>>> GetAllUserPostsAsync(Guid userId)
         {
+            if (userId != getCurrentUserId() || User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
+            {
+                return BadRequest("You cannot get other users posts");
+            }
+
+
             var posts = await _postService.GetAllUserPostAsync(userId);
             return Ok(posts.ToList());
         }

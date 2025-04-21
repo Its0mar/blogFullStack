@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
-using ZeroBlog.Core.Domain.Entities;
 using ZeroBlog.Core.Domain.IdentityEntities;
 using ZeroBlog.Core.DTO;
 using ZeroBlog.Core.DTO.PostDTOS;
@@ -43,23 +41,23 @@ namespace ZeroBlog.Api.Controllers
             var user = await _userManager.FindByIdAsync(userId ?? Guid.Empty.ToString());
             if (user == null)
             {
-                return NotFound("user is not found");
+                return Problem(statusCode:404, title:"User not found");
             }
             var checkPassowrd = await _userManager.CheckPasswordAsync(user, dto.OldPassword);
             if (checkPassowrd == false)
-                return Forbid("password is not correct");
+                return Problem( title: "Forbidden" , detail: "password is not correct", statusCode: StatusCodes.Status403Forbidden);
 
             try
             {
                 var result = await _accountService.UpdateAccountInfoAsync(user, dto);
                 if (!result)
                 {
-                    return BadRequest("update info failed");
+                    return Problem(title:"Failed", detail:"Failed to update password", statusCode:StatusCodes.Status500InternalServerError);
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Problem(title:"Failed", detail: ex.Message, statusCode:StatusCodes.Status500InternalServerError);
             }
             
             return Ok();
@@ -75,7 +73,7 @@ namespace ZeroBlog.Api.Controllers
                 await _userManager.FindByNameAsync(dto.EmailOrUserName);
 
             if (user == null || user.Email == null)
-                return NotFound("user with this email or username is not found");
+                return Problem(title: "Account not found", detail: "email or password is incorrect", statusCode: StatusCodes.Status404NotFound);
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var callBackUrl = Url.Action("ResetPassword", "Account", new { token, email = dto.EmailOrUserName }, Request.Scheme);
@@ -96,7 +94,7 @@ namespace ZeroBlog.Api.Controllers
         {
             var result = await _accountService.UpdatePasswordAsync(dto,getCurrentUserId(), dto.NewPassword);
             if (!result.Succeeded)
-                return BadRequest(result.Errors.Select(e => e.Description).ToList());
+                return Problem(title: "Failed", detail:String.Join(", ",result.Errors.Select(e => e.Description).ToList()));
 
             return Ok("Password updated successfully");
         }
@@ -110,13 +108,13 @@ namespace ZeroBlog.Api.Controllers
 
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
-                return NotFound("User not found");
+                return Problem(title: "Account not found", detail: "email is incorrect", statusCode: StatusCodes.Status404NotFound);
 
             // Reset the password using the token
             var result = await _userManager.ResetPasswordAsync(user, dto.Token, dto.Password);
 
             if (!result.Succeeded)
-                return BadRequest(result.Errors);
+                return Problem(title: "Reset failed", detail: string.Join(",", result.Errors.Select(e => e.Description)), statusCode: StatusCodes.Status500InternalServerError);
 
             return Ok("Password has been reset successfully.");
         }
@@ -128,12 +126,13 @@ namespace ZeroBlog.Api.Controllers
             var user = await _userManager.FindByNameAsync(User?.Identity?.Name ?? "");
             if (user == null)
             {
-                return NotFound("User not found");
+                return Problem(title: "Account not found", detail:"Account not found", statusCode: StatusCodes.Status404NotFound);
+
             }
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
             {
-                return BadRequest("the result is not succeeded");
+                return Problem(title:"Error", detail:"An error occured", statusCode:StatusCodes.Status500InternalServerError);
             }
             await _signInManager.SignOutAsync();
 

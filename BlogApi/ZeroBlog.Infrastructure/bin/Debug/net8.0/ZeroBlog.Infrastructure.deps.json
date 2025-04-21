@@ -1042,10 +1042,7 @@
           "SendGrid": "9.29.3"
         },
         "runtime": {
-          "ZeroBlog.Core.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "ZeroBlog.Core.dll": {}
         }
       }
     }

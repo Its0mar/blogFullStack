@@ -22,12 +22,5 @@ namespace ZeroBlog.Core.Domain.Entities
         public Post Post { get; set; } = new();
         public List<Comment> Replies { get; set; }
 
-        //public Comment()
-        //{
-        //    Author = new();
-        //    Replies = new();
-        //}
-
-
     }
 }

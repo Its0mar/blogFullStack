@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ZeroBlog.Core.DTO.CommentDTOS;
-using ZeroBlog.Core.Services;
 using ZeroBlog.Core.ServicesContract;
 
 namespace ZeroBlog.Api.Controllers
@@ -23,8 +22,8 @@ namespace ZeroBlog.Api.Controllers
         {
             var result = await _commentService.AddCommentAsync(dto, getCurrentUserId());
             if (result == false)
-                return BadRequest();
-            
+                return Problem(statusCode: 500, title: "Failed to create a comment", detail: "Error while creating comment");
+
             return Ok();
         }
 
@@ -33,7 +32,7 @@ namespace ZeroBlog.Api.Controllers
         {
             var result = await _commentService.DeleteCommentAsync(commentId, getCurrentUserId());
             if (result == false)
-                return BadRequest();
+                return Problem(statusCode: 500, title: "Failed to delete a comment", detail: "Error while deleting comment");
 
             return Ok();
         }
@@ -41,7 +40,7 @@ namespace ZeroBlog.Api.Controllers
         private Guid getCurrentUserId()
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return (id == null ? Guid.Empty : Guid.Parse(id));
+            return id == null ? Guid.Empty : Guid.Parse(id);
         }
     }
 }
