@@ -11,5 +11,7 @@ namespace ZeroBlog.Core.Domain.IdentityEntities
         public DateTime CreationDate { get; set; }
         public List<Post> UserPosts { get; set; } = new();
         public List<UserSavedPost> SavedPosts { get; set; } = new();
+        public List<Follow> Followers { get; set; } = new();
+        public List<Follow> Followings { get; set; } = new();
     }
 }

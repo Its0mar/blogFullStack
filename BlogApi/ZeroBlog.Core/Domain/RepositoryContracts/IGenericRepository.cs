@@ -6,6 +6,7 @@ namespace ZeroBlog.Core.Domain.RepositoryContracts
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetWithIncludeAsync(Expression<Func<T, bool>> predicate, Expression<Func<T, object>>[] includes);
+        public Task<bool> IsExistAsync(Expression<Func<T, bool>> predicate);
         Task<T?> GetByIdAsync(Guid id);
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);

@@ -21,8 +21,9 @@ namespace ZeroBlog.Api.Controllers
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
         // to delete later
         private readonly IPostService _postService;
+        private readonly IJwtService _jwtService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole<Guid>> roleManager, IPostService postService)
+        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole<Guid>> roleManager, IPostService postService, IJwtService jwtService)
         {
             _userManager = userManager;
             _accountService = accountService;
@@ -30,6 +31,7 @@ namespace ZeroBlog.Api.Controllers
             _emailSender = emailSender;
             _roleManager = roleManager;
             _postService = postService;
+            _jwtService = jwtService;
         }
 
         // update acccount info
@@ -152,13 +154,27 @@ namespace ZeroBlog.Api.Controllers
                 NormalizedEmail = "USER@EXAMPLE.COM",
                 EmailConfirmed = true
             };
+            
+            var normalUser2 = new ApplicationUser
+            {
+                UserName = "user2",
+                PersonName = "User2",
+                NormalizedUserName = "USER2@EXAMPLE.COM",
+                Email = "user2@example.com",
+                NormalizedEmail = "USER2@EXAMPLE.COM",
+                EmailConfirmed = true
+            };
+            
             if (!await _roleManager.RoleExistsAsync("User")) {
                 IdentityRole<Guid> role = new IdentityRole<Guid>() { Name = "User" };
                 await _roleManager.CreateAsync(role);
 
             }
             await _userManager.CreateAsync(normalUser, "user34");
+            await _userManager.CreateAsync(normalUser2, "user34");
+            
             await _userManager.AddToRoleAsync(normalUser, "User");
+            await _userManager.AddToRoleAsync(normalUser2, "User");
            // await _signInManager.SignInAsync(normalUser, true);
 
             AddPostDTO post = new AddPostDTO
@@ -168,8 +184,15 @@ namespace ZeroBlog.Api.Controllers
                 Title = "titelee",
                 IsPublic = true,
             };
-            await _postService.AddPostAsync(post);
-            return Ok("hello heloo");
+            var token = _jwtService.CreateJwtToken(normalUser);
+            var token2 = _jwtService.CreateJwtToken(normalUser2);
+            return Ok(new { Token1 = token,Token2 = token2 });
+        }
+        
+        [HttpGet]
+        public IActionResult GetID()
+        {
+            return Ok(getCurrentUserId());
         }
 
         private Guid getCurrentUserId()

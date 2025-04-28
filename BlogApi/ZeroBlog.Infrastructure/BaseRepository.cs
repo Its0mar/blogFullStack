@@ -59,6 +59,10 @@ namespace ZeroBlog.Infrastructure
             return await query.Where(predicate).ToListAsync();
         }
 
+        public async Task<bool> IsExistAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
+        }
         public async Task UpdateAsync(T entity)
         {
             _dbSet.Attach(entity);

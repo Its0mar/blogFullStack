@@ -190,6 +190,7 @@ builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(BaseRepositor
 builder.Services.AddTransient(typeof(IPostService), typeof(PostService));
 builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddTransient<IJwtService, JwtService>();
+builder.Services.AddTransient(typeof(IFollowService), typeof(FollowService));
 
 
 var app = builder.Build();

@@ -70,7 +70,7 @@ namespace ZeroBlog.Api.Controllers
             }
             await _userManager.AddToRoleAsync(user, "User");
             var token = _jwtService.CreateJwtToken(user);
-            return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home" });
+            return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home", Id = getCurrentUserId() });
 
         }
 
@@ -93,7 +93,11 @@ namespace ZeroBlog.Api.Controllers
         }
 
         #region UtilityMethod
-
+        private Guid getCurrentUserId()
+        {
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return (id == null ? Guid.Empty : Guid.Parse(id));
+        }
         #endregion
 
     }

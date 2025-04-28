@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ZeroBlog.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19082cd33307e9622e2b0e8cc1281b83f9eaeb78")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fcde7238e689e1a71e1baffa4e8c5648fe184851")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZeroBlog.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZeroBlog.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

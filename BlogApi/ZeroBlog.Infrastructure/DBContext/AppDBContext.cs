@@ -28,10 +28,16 @@ namespace ZeroBlog.Infrastructure.DBContext
             builder.Entity<UserSavedPost>().HasKey(us => new { us.UserID, us.PostID });
             builder.Entity<UserSavedPost>().HasOne(us => us.User).WithMany(u => u.SavedPosts).HasForeignKey(us => us.UserID).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<UserSavedPost>().HasOne(us => us.Post).WithMany(p => p.SavedPosts).HasForeignKey(us => us.PostID).OnDelete(DeleteBehavior.Cascade);
-
             
-
-
+            builder.Entity<Follow>(entity =>
+            {
+                entity.HasKey(f => new {f.FollowerId, f.FollowingId});
+                
+                entity.HasOne(f => f.Follower).WithMany(u => u.Followings).HasForeignKey(f => f.FollowerId).OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(f => f.Following).WithMany(u => u.Followers).HasForeignKey(f => f.FollowingId).OnDelete(DeleteBehavior.Cascade);
+            });
+                
+                
             // Define roles
             var adminRoleId = Guid.NewGuid();
             var userRoleId = Guid.NewGuid();
