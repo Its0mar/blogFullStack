@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
 using ZeroBlog.Core.Domain.IdentityEntities;
@@ -33,7 +34,6 @@ namespace ZeroBlog.Api.Controllers
         }
 
         [HttpPost]
-        //[AllowAnonymous]
         [Authorize(policy: "NotAuthenticatedPolicy")]
         public async Task<IActionResult> Register([FromForm]RegisterDTO dto, [FromQuery]string? returnUrl = null)
         {            
@@ -41,62 +41,79 @@ namespace ZeroBlog.Api.Controllers
             var result = await _userManager.CreateAsync(user, dto.Password);
 
             if (!result.Succeeded)
-            {
                 return Problem(statusCode: 400, title: "Failed to register", detail:string.Join(" ", result.Errors.Select(e => e.Description)));
-            }
-            if (dto.ProfilePic != null)
+           
+            try
             {
-                try
-                {
-                    string[] exts = { ".png", ".jpeg", ".jpg" };
-                    var filePath = await _fileService.UploadFileAsync(dto.ProfilePic, exts, 3, "ProfilePic");
-                    user = await _userManager.FindByNameAsync(dto.UserName);
-                    if (user == null)
-                    {
-                        return Problem(statusCode: 500, title: "Error Occured", detail: "Error while getting user");
-                    }
-                    user.ProfilePicPath = filePath;
-                    await _userManager.UpdateAsync(user);
-                }
-                catch (ArgumentException ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                await ProcessProfilePictureAsync(dto, user);
             }
-            if (await _roleManager.FindByNameAsync("User") is null)
+            catch (Exception ex)
             {
-                IdentityRole<Guid> applicationRole = new IdentityRole<Guid>() { Name = "User" };
-                await _roleManager.CreateAsync(applicationRole);
+                // TODO: Log
             }
-            await _userManager.AddToRoleAsync(user, "User");
+            
+            await AssignUserRoleAsync(user);
+            
             var token = _jwtService.CreateJwtToken(user);
-            return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home", Id = getCurrentUserId() });
+            return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home", Id = GetCurrentUserId() });
 
         }
 
         [HttpPost]
-        //[AllowAnonymous]
         [Authorize(policy: "NotAuthenticatedPolicy")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto, [FromQuery] string? returnUrl = null)
         {
-            var user = await _userManager.FindByEmailAsync(dto.UserNameOrEmail);
-            if (user == null)
-                user = await _userManager.FindByNameAsync(dto.UserNameOrEmail);
-            if (user == null)
-                return Unauthorized("Invalid credentials");
-            var result = await _userManager.CheckPasswordAsync(user, dto.Password);
-            if (result == false)
-                return Unauthorized("Invalid credentials");
+            var user = await FindUserByEmailOrUsernameAsync(dto.UserNameOrEmail);
+
+            if (user == null || await _userManager.CheckPasswordAsync(user, dto.Password))
+                return Problem(statusCode: 401, title: "Invalid credentials", detail: "Invalid credentials");
 
             var token = _jwtService.CreateJwtToken(user);
             return Ok(new { Token = token, ReturnUrl = returnUrl ?? "/home" });
         }
 
         #region UtilityMethod
-        private Guid getCurrentUserId()
+
+        private async Task<ApplicationUser?> FindUserByEmailOrUsernameAsync(string emailOrUsername)
+        {
+            var user = await _userManager.FindByEmailAsync(emailOrUsername) ?? await _userManager.FindByNameAsync(emailOrUsername);
+            return user;
+        }
+
+        private async Task ProcessProfilePictureAsync(RegisterDTO dto, ApplicationUser user)
+        {
+            if (dto.ProfilePic is null) return;
+
+            string[] allowedExtensions = { ".png", ".jpeg", ".jpg" };
+            var filePath = await _fileService.UploadFileAsync(dto.ProfilePic, allowedExtensions, 3, "ProfilePic");
+            var refreshedUser = await _userManager.FindByNameAsync(dto.UserName);
+            
+            if (refreshedUser is null) 
+                throw new InvalidOperationException("User not found after creation");
+            
+            refreshedUser.ProfilePicPath = filePath;
+            var updateResult = await _userManager.UpdateAsync(refreshedUser);
+            
+            if (!updateResult.Succeeded)
+                throw new Exception($"Failed to update user profile picture: {string.Join(", ", updateResult.Errors.Select(e => e.Description))}");
+        }
+        
+        private async Task AssignUserRoleAsync(ApplicationUser user)
+        {
+            const string userRoleName = "User";
+            
+            if (await _roleManager.FindByNameAsync(userRoleName) is null)
+            {
+                var applicationRole = new IdentityRole<Guid>(userRoleName);
+                await _roleManager.CreateAsync(applicationRole);
+            }
+
+            await _userManager.AddToRoleAsync(user, userRoleName);
+        }
+        private Guid GetCurrentUserId()
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return (id == null ? Guid.Empty : Guid.Parse(id));
+            return Guid.TryParse(id, out var result) ? result : Guid.Empty;
         }
         #endregion
 
