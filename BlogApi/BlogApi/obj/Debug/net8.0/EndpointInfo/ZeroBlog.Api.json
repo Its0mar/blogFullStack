@@ -119,7 +119,7 @@
       }
     },
     "/api/Account/UpdatePassword": {
-      "post": {
+      "patch": {
         "tags": [
           "Account"
         ],
@@ -193,6 +193,18 @@
       }
     },
     "/": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Account/GetID": {
       "get": {
         "tags": [
           "Account"
@@ -387,6 +399,61 @@
               "format": "uuid"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Follow/AddFollow": {
+      "post": {
+        "tags": [
+          "Follow"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFollowDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFollowDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFollowDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Follow/GetFollowers": {
+      "get": {
+        "tags": [
+          "Follow"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Follow/GetFollowing": {
+      "get": {
+        "tags": [
+          "Follow"
         ],
         "responses": {
           "200": {
@@ -616,6 +683,20 @@
             "nullable": true
           },
           "postId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddFollowDTO": {
+        "type": "object",
+        "properties": {
+          "followingId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "followerId": {
             "type": "string",
             "format": "uuid"
           }

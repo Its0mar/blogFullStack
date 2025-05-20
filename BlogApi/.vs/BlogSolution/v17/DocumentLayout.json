@@ -3,28 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\zeroblog.core\\services\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|solutionrelative:zeroblog.core\\services\\postservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\zeroblog.core\\servicescontract\\ipostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|solutionrelative:zeroblog.core\\servicescontract\\ipostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\zeroblog.core\\services\\followservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|solutionrelative:zeroblog.core\\services\\followservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\zeroblog.core\\services\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|solutionrelative:zeroblog.core\\services\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\zeroblog.core\\dto\\postdtos\\viewpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|solutionrelative:zeroblog.core\\dto\\postdtos\\viewpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\zeroblog.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\zeroblog.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\zeroblog.core\\dto\\postdtos\\addpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|solutionrelative:zeroblog.core\\dto\\postdtos\\addpostdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\blogapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{875E2E15-2C70-40E4-A4B6-026BF9F2D990}|BlogApi\\ZeroBlog.Api.csproj|solutionrelative:blogapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|c:\\users\\omarj\\source\\repos\\its0mar\\blogfullstack\\blogapi\\zeroblog.core\\servicescontract\\ipostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E7F6D36-5BE4-43B6-AC40-D17DE00E6251}|ZeroBlog.Core\\ZeroBlog.Core.csproj|solutionrelative:zeroblog.core\\servicescontract\\ipostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,39 +66,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IPostService.cs",
-              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\ServicesContract\\IPostService.cs",
-              "RelativeDocumentMoniker": "ZeroBlog.Core\\ServicesContract\\IPostService.cs",
-              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\ServicesContract\\IPostService.cs",
-              "RelativeToolTip": "ZeroBlog.Core\\ServicesContract\\IPostService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T14:52:53.291Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "BlogApi\\Controllers\\PostController.cs",
-              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\PostController.cs",
-              "RelativeToolTip": "BlogApi\\Controllers\\PostController.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAA9wCAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T14:43:45.545Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "BlogApi\\Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\AccountController.cs",
               "RelativeToolTip": "BlogApi\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAAwwKsAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAkwJEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-05T12:02:21.915Z",
               "EditorCaption": ""
@@ -86,40 +80,122 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "BlogApi\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "BlogApi\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAwEAAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T11:29:25.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CommentService.cs",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\Services\\CommentService.cs",
+              "RelativeDocumentMoniker": "ZeroBlog.Core\\Services\\CommentService.cs",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\Services\\CommentService.cs",
+              "RelativeToolTip": "ZeroBlog.Core\\Services\\CommentService.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAgwEMAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T17:14:42.264Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CommentController.cs",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\CommentController.cs",
+              "RelativeDocumentMoniker": "BlogApi\\Controllers\\CommentController.cs",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\CommentController.cs",
+              "RelativeToolTip": "BlogApi\\Controllers\\CommentController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwAkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T15:33:16.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "PostService.cs",
               "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\Services\\PostService.cs",
               "RelativeDocumentMoniker": "ZeroBlog.Core\\Services\\PostService.cs",
               "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\Services\\PostService.cs",
               "RelativeToolTip": "ZeroBlog.Core\\Services\\PostService.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwBwAAABNAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T11:56:23.898Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T11:56:23.898Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AddPostDTO.cs",
-              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\DTO\\PostDTOS\\AddPostDTO.cs",
-              "RelativeDocumentMoniker": "ZeroBlog.Core\\DTO\\PostDTOS\\AddPostDTO.cs",
-              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\DTO\\PostDTOS\\AddPostDTO.cs",
-              "RelativeToolTip": "ZeroBlog.Core\\DTO\\PostDTOS\\AddPostDTO.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "FollowService.cs",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\Services\\FollowService.cs",
+              "RelativeDocumentMoniker": "ZeroBlog.Core\\Services\\FollowService.cs",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\Services\\FollowService.cs",
+              "RelativeToolTip": "ZeroBlog.Core\\Services\\FollowService.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T11:48:55.461Z"
+              "WhenOpened": "2025-05-14T17:15:36.282Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "ViewPostDTO.cs",
               "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\DTO\\PostDTOS\\ViewPostDTO.cs",
               "RelativeDocumentMoniker": "ZeroBlog.Core\\DTO\\PostDTOS\\ViewPostDTO.cs",
               "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\DTO\\PostDTOS\\ViewPostDTO.cs",
               "RelativeToolTip": "ZeroBlog.Core\\DTO\\PostDTOS\\ViewPostDTO.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAcwAoAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T11:47:36.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T15:38:59.073Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ZeroBlog.Api.csproj",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\ZeroBlog.Api.csproj",
+              "RelativeDocumentMoniker": "BlogApi\\ZeroBlog.Api.csproj",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\ZeroBlog.Api.csproj",
+              "RelativeToolTip": "BlogApi\\ZeroBlog.Api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-07T15:11:26.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Program.cs",
+              "RelativeDocumentMoniker": "BlogApi\\Program.cs",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Program.cs",
+              "RelativeToolTip": "BlogApi\\Program.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAArwEkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T11:24:40.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IPostService.cs",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\ServicesContract\\IPostService.cs",
+              "RelativeDocumentMoniker": "ZeroBlog.Core\\ServicesContract\\IPostService.cs",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\ZeroBlog.Core\\ServicesContract\\IPostService.cs",
+              "RelativeToolTip": "ZeroBlog.Core\\ServicesContract\\IPostService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T14:52:53.291Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PostController.cs",
+              "DocumentMoniker": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\PostController.cs",
+              "RelativeDocumentMoniker": "BlogApi\\Controllers\\PostController.cs",
+              "ToolTip": "C:\\Users\\omarj\\source\\repos\\Its0mar\\blogFullStack\\BlogApi\\BlogApi\\Controllers\\PostController.cs",
+              "RelativeToolTip": "BlogApi\\Controllers\\PostController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwBwAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T14:43:45.545Z"
             }
           ]
         }

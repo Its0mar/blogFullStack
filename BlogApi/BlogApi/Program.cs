@@ -12,10 +12,7 @@ using ZeroBlog.Infrastructure.DBContext;
 using ZeroBlog.Infrastructure;
 using ZeroBlog.Core.Domain.RepositoryContracts;
 using System.Text;
-using DotNetEnv;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.JsonWebTokens;
-using System.Security.Claims;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

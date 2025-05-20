@@ -49,8 +49,10 @@ namespace ZeroBlog.Api.Controllers
             }
             catch (Exception ex)
             {
+                //return Problem(title: "Failed to upload profile picture", detail: ex.Message, statusCode: 500);
                 // TODO: Log
             }
+
             
             await AssignUserRoleAsync(user);
             

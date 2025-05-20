@@ -37,6 +37,16 @@
   },
   {
     "ContainingType": "ZeroBlog.Api.Controllers.AccountController",
+    "Method": "GetID",
+    "RelativePath": "api/Account/GetID",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZeroBlog.Api.Controllers.AccountController",
     "Method": "ResetPassword",
     "RelativePath": "api/Account/ResetPassword",
     "HttpMethod": "POST",
@@ -101,7 +111,7 @@
     "ContainingType": "ZeroBlog.Api.Controllers.AccountController",
     "Method": "UpdatePassword",
     "RelativePath": "api/Account/UpdatePassword",
-    "HttpMethod": "POST",
+    "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -225,6 +235,42 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZeroBlog.Api.Controllers.FollowController",
+    "Method": "AddFollowAsync",
+    "RelativePath": "api/Follow/AddFollow",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ZeroBlog.Core.DTO.AddFollowDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZeroBlog.Api.Controllers.FollowController",
+    "Method": "GetFollowers",
+    "RelativePath": "api/Follow/GetFollowers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ZeroBlog.Api.Controllers.FollowController",
+    "Method": "GetFollowing",
+    "RelativePath": "api/Follow/GetFollowing",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

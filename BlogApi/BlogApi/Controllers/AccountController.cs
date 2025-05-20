@@ -20,93 +20,97 @@ namespace ZeroBlog.Api.Controllers
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
         // to delete later
-        private readonly IPostService _postService;
         private readonly IJwtService _jwtService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole<Guid>> roleManager, IPostService postService, IJwtService jwtService)
+        public AccountController(UserManager<ApplicationUser> userManager, IAccountService accountService, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, RoleManager<IdentityRole<Guid>> roleManager, IJwtService jwtService)
         {
             _userManager = userManager;
             _accountService = accountService;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _roleManager = roleManager;
-            _postService = postService;
             _jwtService = jwtService;
         }
 
-        // update acccount info
 
         [HttpPost]
         public async Task<IActionResult> UpdateAccountInfo(UpdateAccInfoDTO dto)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _userManager.FindByIdAsync(userId ?? Guid.Empty.ToString());
-            if (user == null)
+            var userId = GetCurrentUserId();
+            if (userId == Guid.Empty)
             {
-                return Problem(statusCode:404, title:"User not found");
+                return Problem(title: "Unauthorized", detail: "User not authenticated", statusCode:StatusCodes.Status401Unauthorized);
             }
-            var checkPassowrd = await _userManager.CheckPasswordAsync(user, dto.OldPassword);
-            if (checkPassowrd == false)
-                return Problem( title: "Forbidden" , detail: "password is not correct", statusCode: StatusCodes.Status403Forbidden);
+
+            var user = await _userManager.FindByIdAsync(GetCurrentUserId().ToString());
+            if (user is null)
+            {
+                return Problem(title: "User not found", detail: "The requested user account was not found", statusCode: StatusCodes.Status404NotFound);
+            }
+
+            var checkPassword = await _userManager.CheckPasswordAsync(user, dto.OldPassword);
+            if (!checkPassword)
+                return Problem( title: "Invalid Password", detail: "Current password is not correct", statusCode: StatusCodes.Status400BadRequest);
 
             try
             {
                 var result = await _accountService.UpdateAccountInfoAsync(user, dto);
                 if (!result)
                 {
-                    return Problem(title:"Failed", detail:"Failed to update password", statusCode:StatusCodes.Status500InternalServerError);
+                    return Problem( title: "Update Failed", detail: "Failed to update account information", statusCode: StatusCodes.Status500InternalServerError);
                 }
+                return Ok("Account information updated successfully");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Problem(title:"Failed", detail: ex.Message, statusCode:StatusCodes.Status500InternalServerError);
+                return Problem( title: "updating the picture failed", detail: "An error occurred while updating the profile picture", statusCode: StatusCodes.Status500InternalServerError);
             }
-            
-            return Ok();
-
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize("NotAuthenticatedPolicy")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDTO dto)
         {
             var user = await _userManager.FindByEmailAsync(dto.EmailOrUserName);
-            if (user == null)
-                await _userManager.FindByNameAsync(dto.EmailOrUserName);
+            if (user is null)
+                user = await _userManager.FindByNameAsync(dto.EmailOrUserName);
 
-            if (user == null || user.Email == null)
+            if (user is null || string.IsNullOrEmpty(user.Email))
                 return Problem(title: "Account not found", detail: "email or password is incorrect", statusCode: StatusCodes.Status404NotFound);
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var callBackUrl = Url.Action("ResetPassword", "Account", new { token, email = dto.EmailOrUserName }, Request.Scheme);
+            var encodedToken = Uri.EscapeDataString(token);
+            var encodedEmail = Uri.EscapeDataString(user.Email);
+            var callBackUrl = $"{Request.Scheme}://{Request.Host}/ResetPassword?token={encodedToken}&email={encodedEmail}";
+
             try
             {
                 await _emailSender.SendEmailAsync(user.Email, "Reset Password", $"Please reset your password by clicking here: <a href='{callBackUrl}'>link</a>");
+                return Ok("Reset password link has been sent to your email.");
             }
             catch(Exception ex)
             {
-                return Ok(ex.Message);
+                // TODO : log the exception
+                return Problem( title: "Email Sending Failed", detail: "Failed to send password reset email", statusCode: StatusCodes.Status500InternalServerError);
             }
-            return Ok("Reset password link has been sent to your email.");
+            
             
         }
 
-        [HttpPost]
+        [HttpPatch]
         public async Task<IActionResult> UpdatePassword([FromBody] UpdatePassDTO dto)
         {
-            var result = await _accountService.UpdatePasswordAsync(dto,getCurrentUserId(), dto.NewPassword);
+            var result = await _accountService.UpdatePasswordAsync(dto,GetCurrentUserId(), dto.NewPassword);
             if (!result.Succeeded)
                 return Problem(title: "Failed", detail:String.Join(", ",result.Errors.Select(e => e.Description).ToList()));
 
             return Ok("Password updated successfully");
         }
 
-        [HttpPost]
+        [HttpPatch]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
@@ -125,7 +129,7 @@ namespace ZeroBlog.Api.Controllers
         [HttpDelete] 
         public async Task<IActionResult> DeleteAccount()
         {
-            var user = await _userManager.FindByNameAsync(User?.Identity?.Name ?? "");
+            var user = await _userManager.FindByNameAsync(User.Identity?.Name ?? "");
             if (user == null)
             {
                 return Problem(title: "Account not found", detail:"Account not found", statusCode: StatusCodes.Status404NotFound);
@@ -138,67 +142,12 @@ namespace ZeroBlog.Api.Controllers
             }
             await _signInManager.SignOutAsync();
 
-            return Ok();
+            return Ok(new { Message = "Account deleted successfully" });
         }
-
-        [HttpGet("/")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Meow()
-        {
-            var normalUser = new ApplicationUser
-            {
-                UserName = "user",
-                PersonName = "User",
-                NormalizedUserName = "USER@EXAMPLE.COM",
-                Email = "user@example.com",
-                NormalizedEmail = "USER@EXAMPLE.COM",
-                EmailConfirmed = true
-            };
-            
-            var normalUser2 = new ApplicationUser
-            {
-                UserName = "user2",
-                PersonName = "User2",
-                NormalizedUserName = "USER2@EXAMPLE.COM",
-                Email = "user2@example.com",
-                NormalizedEmail = "USER2@EXAMPLE.COM",
-                EmailConfirmed = true
-            };
-            
-            if (!await _roleManager.RoleExistsAsync("User")) {
-                IdentityRole<Guid> role = new IdentityRole<Guid>() { Name = "User" };
-                await _roleManager.CreateAsync(role);
-
-            }
-            await _userManager.CreateAsync(normalUser, "user34");
-            await _userManager.CreateAsync(normalUser2, "user34");
-            
-            await _userManager.AddToRoleAsync(normalUser, "User");
-            await _userManager.AddToRoleAsync(normalUser2, "User");
-           // await _signInManager.SignInAsync(normalUser, true);
-
-            AddPostDTO post = new AddPostDTO
-            {
-                AuthorId = getCurrentUserId(),
-                Body = "bodyyy",
-                Title = "titelee",
-                IsPublic = true,
-            };
-            var token = _jwtService.CreateJwtToken(normalUser);
-            var token2 = _jwtService.CreateJwtToken(normalUser2);
-            return Ok(new { Token1 = token,Token2 = token2 });
-        }
-        
-        [HttpGet]
-        public IActionResult GetID()
-        {
-            return Ok(getCurrentUserId());
-        }
-
-        private Guid getCurrentUserId()
+        private Guid GetCurrentUserId()
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return (id == null ? Guid.Empty : Guid.Parse(id));
+            return string.IsNullOrEmpty(id) ? Guid.Empty : Guid.Parse(id);
         }
     }
 }
